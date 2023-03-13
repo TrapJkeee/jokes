@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch, Redirect } from "react-router-dom";
+import Jokes from "./pages/Jokes";
+import JokeDetails from "./pages/JokeDetails";
+import AddJoke from "./pages/AddJoke";
+import Layout from "./components/layout/Layout";
+import NotFound from "./pages/NotFound";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/jokes" />
+        </Route>
+        <Route path="/jokes" exact>
+          <Jokes />
+        </Route>
+        <Route path="/jokes/:jokeId">
+          <JokeDetails />
+        </Route>
+        <Route path="/add-joke">
+          <AddJoke />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
+    </Layout>
   );
-}
+};
 
 export default App;
